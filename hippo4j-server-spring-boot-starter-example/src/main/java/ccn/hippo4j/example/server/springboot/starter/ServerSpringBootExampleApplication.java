@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @EnableDynamicThreadPool
 @SpringBootApplication(scanBasePackages = "cn.hippo4j.example.core")
-public class Hippo4jServerSpringBootStarterApplication {
+public class ServerSpringBootExampleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Hippo4jServerSpringBootStarterApplication.class, args);
+        SpringApplication.run(ServerSpringBootExampleApplication.class, args);
     }
 }
