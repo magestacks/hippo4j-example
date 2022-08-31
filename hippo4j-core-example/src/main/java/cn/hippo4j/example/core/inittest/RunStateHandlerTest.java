@@ -25,10 +25,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 import static cn.hippo4j.common.constant.Constants.EXECUTE_TIMEOUT_TRACE;
 
@@ -37,7 +34,7 @@ import static cn.hippo4j.common.constant.Constants.EXECUTE_TIMEOUT_TRACE;
 public class RunStateHandlerTest {
 
     @Resource
-    private ThreadPoolExecutor messageConsumeDynamicThreadPool;
+    private Executor messageConsumeDynamicThreadPool;
 
     @Resource
     private ThreadPoolExecutor messageProduceDynamicThreadPool;
@@ -67,7 +64,7 @@ public class RunStateHandlerTest {
         runTask(messageProduceDynamicThreadPool);
     }
 
-    private void runTask(ExecutorService executorService) {
+    private void runTask(Executor executorService) {
         // 模拟任务运行
         runStateHandlerTestExecutor.execute(() -> {
             /**

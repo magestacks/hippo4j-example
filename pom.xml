@@ -13,7 +13,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
         
-        <hippo4j.version>1.4.0-alpha</hippo4j.version>
+        <hippo4j.version>1.4.0-RC</hippo4j.version>
     </properties>
 
     <modules>

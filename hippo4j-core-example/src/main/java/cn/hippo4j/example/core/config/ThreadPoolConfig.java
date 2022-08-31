@@ -21,10 +21,12 @@ import cn.hippo4j.core.executor.DynamicThreadPool;
 import cn.hippo4j.core.executor.support.ThreadPoolBuilder;
 import cn.hippo4j.example.core.handler.TaskTraceBuilderHandler;
 import cn.hippo4j.example.core.inittest.TaskDecoratorTest;
+import com.alibaba.ttl.threadpool.TtlExecutors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import static cn.hippo4j.example.core.constant.GlobalTestConstant.MESSAGE_CONSUME;
@@ -36,7 +38,7 @@ public class ThreadPoolConfig {
 
     @Bean
     @DynamicThreadPool
-    public ThreadPoolExecutor messageConsumeDynamicThreadPool() {
+    public Executor messageConsumeDynamicThreadPool() {
         String threadPoolId = MESSAGE_CONSUME;
         ThreadPoolExecutor customExecutor = ThreadPoolBuilder.builder()
                 .dynamicPool()
@@ -47,7 +49,9 @@ public class ThreadPoolConfig {
                 .awaitTerminationMillis(5000L)
                 .taskDecorator(new TaskTraceBuilderHandler())
                 .build();
-        return customExecutor;
+        // Ali ttl adaptation use case.
+        Executor ttlExecutor = TtlExecutors.getTtlExecutor(customExecutor);
+        return ttlExecutor;
     }
 
     @Bean
